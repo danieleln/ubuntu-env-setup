@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+
+# destination directory where to store all the dotfiles
+declare -r destDir="${1:-$HOME/.config}"
+
+
+
+declare -r __HERE__=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+cp -r $__HERE__/../dotfiles/* $destDir
+chmod u+rwx -R $destDir
+
+

@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+
+declare -r dotfilesDir="$HOME/.config"
+declare -r main_bashrc="$HOME/.bashrc"
+declare -r custom_bashrc="$dotfilesDir/bashrc/bashrc"
+
+
+declare -r __HERE__=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+
+# copy all the dotfiles
+$__HERE__/src/copy_dotfiles
+# software installation
+$__HERE__/src/install_softwares
+
+
+# autorun the vim command :PlugInstall
+vim -E -s -u "$HOME/.config/nvim/src/plugins.vim" +PlugInstall +qall
+
+# enable case insensitive autocompletion
+if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
+echo 'set completion-ignore-case On' >> ~/.inputrc
+
+# point the main .bashrc to the custom one
+echo "source $custom_bashrc" >> $main_bashrc
+source $main_bashrc

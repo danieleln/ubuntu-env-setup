@@ -1,0 +1,131 @@
+#!/usr/bin/bash
+
+
+# verify if a program is installed
+isInstalled ()
+{
+    if command -v "$1" > /dev/null
+    then
+        true
+    else
+        false
+    fi
+}
+
+
+# ask to the user whether to install a program
+userConfirmsInstallation ()
+{
+    echo "Do you want to install $1? [y/n]"
+    read answer
+
+    if [[ "$answer" == 'y' || "$answer" == 'Y' ]]
+    then
+        true
+    else
+        false
+    fi
+}
+
+
+installFromApt ()
+{
+    # name of the program run in bash
+    declare BASH_PROGRAM_NAME="$1"
+
+    # name of the apt package
+    declare APT_PACKAGE_NAME=""
+
+
+
+    if (( $# == 2 ))
+    then
+        APT_PACKAGE_NAME="$2"
+    else
+        APT_PACKAGE_NAME=$BASH_PROGRAM_NAME
+    fi
+
+
+    if ! isInstalled $BASH_PROGRAM_NAME
+    then
+        if userConfirmsInstallation $BASH_PROGRAM_NAME
+        then
+            sudo apt install $APT_PACKAGE_NAME -y
+        fi
+    fi
+}
+
+
+
+# make dir if it doesn't exists
+function smkdir ()
+{
+    if ! [ -d "$1" ]
+    then
+        command mkdir -p  "$1"
+    fi
+}
+
+
+
+# check for root permission
+if (( $(id -u) == 0 ))
+then
+    >&2 echo "Do not run the script with sudo permissions straight away!"
+    exit 1
+fi
+
+
+
+
+
+
+# actual tools
+installFromApt tree
+installFromApt unzip
+installFromApt nvim neovim
+# serious development tools
+installFromApt sl
+installFromApt cowsay
+installFromApt neofetch
+
+# installing plug (plugin manager for vim/neovim)
+declare -r PLUG_DIR="$HOME/.config/nvim/autoload"
+declare -r PLUG_FILE="$PLUG_DIR/plug.vim"
+
+if ! [ -f "$PLUG_FILE" ]
+then
+    if userConfirmsInstallation "vim-plug"
+    then
+        smkdir $PLUG_DIR
+        curl -fLo "$PLUG_FILE" --create-dirs \
+            "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" 
+    fi
+fi
+
+
+# installing oh my posh
+if ! isInstalled "oh-my-posh"
+then
+    if userConfirmsInstallation "oh-my-posh"
+    then
+        # installing oh-my-posh
+        sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+        sudo chmod +x /usr/local/bin/oh-my-posh
+    fi
+fi 
+
+
+# installing oh-my-posh-themes
+if userConfirmsInstallation "oh-my-posh-themes"
+then
+    declare -r OMP_THEMES_DIR="$HOME/.config/oh-my-posh/themes"
+
+    smkdir $OMP_THEMES_DIR  && \
+    wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O /tmp/themes.zip  && \
+    unzip /tmp/themes.zip -d $OMP_THEMES_DIR  && \
+    chmod u+rw $OMP_THEMES_DIR/*.omp.*  && \
+    rm /tmp/themes.zip 
+fi
+
+
