@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+# set folder color
+LS_COLORS="$LS_COLORS:ow=40:";
+export LS_COLORS;
+
+# enable vi(m) keys in terminal
+set -o vi
+
+
+# system logo
+clear
+neofetch
