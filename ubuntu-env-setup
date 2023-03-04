@@ -9,6 +9,9 @@ declare -r custom_bashrc="$dotfilesDir/bashrc/bashrc"
 declare -r __HERE__=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 
+echo Updating packages
+sudo apt update && sudo apt upgrade
+
 # copy all the dotfiles
 $__HERE__/src/copy_dotfiles
 # software installation
