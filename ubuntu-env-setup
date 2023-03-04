@@ -31,9 +31,10 @@ echo "source $custom_bashrc" >> $main_bashrc
 
 
 echo
-echo -----------------------------------------------------------
+echo ---------------------------------------------------------------------------
 echo To complete the configuration you should:
-echo 1. Reload the bashrc file by running \"source \$HOME/.bashrc\"
+echo 1. Reload the bashrc file by running \"source $main_bashrc\"
 echo 2. Enter vim and run the command \":PlugInstall\"
-echo -----------------------------------------------------------
+echo ---------------------------------------------------------------------------
+
 
