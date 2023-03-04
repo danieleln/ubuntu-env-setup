@@ -20,14 +20,14 @@ function SetTheme(theme)
 endfunction
 
 
-" map <F1> :call SetTheme("PaperColor")<cr>
-" map <F2> :call SetTheme("gruvbox")<cr>
-" map <F3> :call SetTheme("onedark")<cr>
-" map <F4> :call SetTheme("ayu")<cr>
-" map <F5> :call SetTheme("OceanicNext")<cr>
-" map <F6> :call SetTheme("molokai")<cr>
-" map <F7> :call SetTheme("rigel")<cr>
+map <F2> :call SetTheme("ayu")<cr>
+map <F3> :call SetTheme("PaperColor")<cr>
+map <F4> :call SetTheme("gruvbox")<cr>
+map <F5> :call SetTheme("onedark")<cr>
+map <F6> :call SetTheme("OceanicNext")<cr>
+map <F7> :call SetTheme("molokai")<cr>
+map <F8> :call SetTheme("rigel")<cr>
 
 
-" call SetTheme("PaperColor")
-call SetTheme("default")
+call SetTheme("ayu")
+" call SetTheme("default")

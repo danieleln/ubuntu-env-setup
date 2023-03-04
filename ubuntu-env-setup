@@ -19,7 +19,7 @@ $__HERE__/src/install_softwares
 
 
 # autorun the vim command :PlugInstall
-vim -E -s -u "$HOME/.config/nvim/src/plugins.vim" +PlugInstall +qall
+# vim -E -s -u "$HOME/.config/nvim/src/plugins.vim" +PlugInstall +qall
 
 # enable case insensitive autocompletion
 if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
@@ -27,4 +27,13 @@ echo 'set completion-ignore-case On' >> ~/.inputrc
 
 # point the main .bashrc to the custom one
 echo "source $custom_bashrc" >> $main_bashrc
-source $main_bashrc
+# source $main_bashrc
+
+
+echo
+echo -----------------------------------------------------------
+echo To complete the configuration you should:
+echo 1. Reload the bashrc file by running \"source \$HOME/.bashrc\"
+echo 2. Enter vim and run the command \":PlugInstall\"
+echo -----------------------------------------------------------
+

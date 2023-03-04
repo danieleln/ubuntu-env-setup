@@ -16,6 +16,7 @@ isInstalled ()
 # ask to the user whether to install a program
 userConfirmsInstallation ()
 {
+    echo
     echo "Do you want to install $1? [y/n]"
     read answer
 
