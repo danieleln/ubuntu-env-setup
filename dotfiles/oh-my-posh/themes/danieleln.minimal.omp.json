@@ -1,0 +1,100 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "osc99": true,
+    "version": 2,
+
+    "palettes": {
+        "template": "default",
+        "list": {
+            "default": {
+                "main": "#c5c8c6",
+                "lowContrast": "#444950",
+
+                "exitCodeFailure": "#a54242",
+                "exitCodeSuccess": "#8c9440",
+
+                "path": "#707880",
+
+                "gitWorking": "#5f819d",
+                "gitStaging": "#5e8d87",
+                "gitCommitted": "#707880",
+
+                "lambda": "#f0c674"
+            }
+        }
+    },
+
+    "blocks": [
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "type": "exit",
+                    "template": "{{ if gt .Code 0 }}\uebe6 {{ .Code }}{{ end }}",
+                    "properties": {
+                        "always_enabled": true
+                    },
+
+                    "style": "diamond",
+                    "trailing_diamond": " \ue0b1 ",
+
+                    "foreground_templates": [
+                        "{{ if gt .Code 0 }}p:exitCodeFailure{{ else }}p:exitCodeSuccess{{ end }}"
+                    ]
+                },
+                {
+                    "type": "text",
+                    "template": "<b>ﬦ</>",
+
+                    "style": "plain",
+
+                    "foreground": "p:lambda"
+                },
+                {
+                    "type": "path",
+                    "template": " {{ .Path }}",
+                    "properties": {
+                        "style": "agnoster_short",
+                        "folder_separator_icon": "/",
+                        "folder_icon": "\uf101",
+                        "max_depth": 2
+                    },
+
+                    "style": "plain",
+
+                    "background": "parentBackground",
+                    "foreground": "p:path"
+                },
+                {
+                    "type": "git",
+                    "template": "{{ .HEAD }}",
+                    "properties": {
+                        "branch_icon": " \ue725 ",
+                        "fetch_status": true,
+                        "fetch_upstream_icon": false
+                    },
+
+                    "style": "plain",
+
+                    "foreground": "p:gitCommitted",
+                    "foreground_templates": [
+                        "{{ if .Working.Changed }}p:gitWorking{{ end }}",
+                        "{{ if .Staging.Changed }}p:gitStaging{{ end }}"
+                    ]
+                },
+                {
+                    "type": "text",
+                    "template": " \ue0b1",
+
+                    "style": "plain",
+                    "foreground": "p:lowContrast"
+                }
+            ]
+        }
+    ],
+
+    
+    "console_title_template": "{{ .UserName }}@{{ .HostName }}",
+    "final_space": true
+}

@@ -1,29 +1,44 @@
 {
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "osc99": true,
+    "version": 2,
 
-    "palette": {
-        "jet":       "#111111",
-        "inkstone":  "#3b3b3b",
-        "slate":     "#5d5d5d",
-        "graphite":  "#666666",
-        "ash":       "#888888",
-        "silk":      "#cdcdcd",
-        "porcelain": "#f7f7f7",
-        "white":     "#ffffff",
-        "blue":      "#18b6ec",
-        "green":     "#3fb350",
-        "yellow":    "#F89A0F",
-        "orange":    "#EA5521",
-        "red":       "#EE3148",
+    "palettes": {
+        "template": "{{ if eq .Env.OMP_PALETTE \"fluorescent\" }}fluorescent{{ else if eq .Env.OMP_PALETTE \"solarizedDark\" }}solarizedDark{{ else }}default{{ end }}",
+        "list": {
+            "fluorescent": {
+                "failure":   "#EE3148",
+                "success":   "#3fb350",
+                "time":      "#18b6ec",
+                "primary":   "#666666",
+                "secondary": "#3b3b3b",
+                "tertiary":  "#f7f7f7",
+                "accent-1":  "#F89A0F",
+                "accent-2":  "#EA5521"
+            },
 
-        "failure":   "p:red",
-        "success":   "p:green",
-        "time":      "p:blue",
-        "primary":   "p:graphite",
-        "secondary": "p:inkstone",
-        "tertiary":  "p:porcelain",
-        "accent-1":  "p:yellow",
-        "accent-2":  "p:orange"
+            "solarizedDark": {
+                "failure":   "#DC322F",
+                "success":   "#859900",
+                "time":      "#268BD2",
+                "primary":   "#839496",
+                "secondary": "#586E75",
+                "tertiary":  "#EEE8D5",
+                "accent-1":  "#B58900",
+                "accent-2":  "#CB4B16"
+            },
+    
+            "default": {
+                "failure":   "red",
+                "success":   "cyan",
+                "time":      "blue",
+                "primary":   "default",
+                "secondary": "default",
+                "tertiary":  "default",
+                "accent-1":  "yellow",
+                "accent-2":  "lightRed"
+            }
+        }
     },
 
     "blocks": [
@@ -32,17 +47,9 @@
             "alignment": "left",
             "newline": true,
             "segments": [
-				{
-					"type": "text",
-					"template": "\ue200 ",
-
-					"style": "plain",
-					
-					"foreground": "p:secondary"
-				},
                 {
                     "type": "exit",
-                    "template": "{{ if gt .Code 0 }}\uf00d<p:primary>{</>{{ .Code }}<p:primary>}</>{{ else }}\uf00c{{ end }}",
+                    "template": "{{ if gt .Code 0 }}\uebe6 {{ .Code }}<p:primary> on</>{{ else }}\ueab2 <p:primary>on</>{{ end }}",
                     "properties": {
                         "always_enabled": true
                     },
@@ -52,14 +59,6 @@
                     "foreground_templates": [
                         "{{ if gt .Code 0 }}p:failure{{ else }}p:success{{ end }}"
                     ]
-                },
-                {
-                    "type": "text",
-                    "template": " on",
-
-                    "style": "plain",
-
-                    "foreground": "p:primary"
                 },
                 {
                     "type": "time",
@@ -86,7 +85,7 @@
                     "type": "time",
                     "template": " {{ .CurrentDate | date .Format }}",
                     "properties": {
-                        "time_format": "Jan _2"
+                        "time_format": "Jan 2"
                     },
         
                     "style": "plain",
@@ -136,17 +135,36 @@
                 },
                 {
                     "type": "path",
-                    "template": " <p:primary>in</>  {{ .Path }} ",
+                    "template": " <p:primary>in</> {{ .Path }}",
                     "properties": {
-                        "style": "agnoster_short",
+                        "style": "folder",
                         "folder_separator_icon": "/",
-                        "max_depth": 3
+                        "max_depth": 1
                     },
 
                     "style": "plain",
 
                     "background": "parentBackground",
                     "foreground": "p:accent-2"
+                },
+                {
+                    "type": "git",
+                    "template": "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }}",
+                    "properties": {
+                        "branch_icon": " \ue725 ",
+                        "fetch_status": true,
+                        "fetch_upstream_icon": false
+                    },
+
+                    "style": "plain",
+
+                    "foreground": "p:primary",
+                    "foreground_templates": [
+                        "{{ if or (.Working.Changed) (.Staging.Changed) }}#ffeb95{{ end }}",
+                        "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#c5e478{{ end }}",
+                        "{{ if gt .Ahead 0 }}#C792EA{{ end }}",
+                        "{{ if gt .Behind 0 }}#C792EA{{ end }}"
+                    ]
                 }
             ]
         },
@@ -160,7 +178,7 @@
             "segments": [
                 {
                     "type": "text",
-                    "template": "<p:secondary>\u2514\u2500\ue285</> <p:tertiary>$</>",
+                    "template": "<p:secondary>\u2514</> <p:tertiary>ﬦ</>",
 
                     "style": "plain",
 
@@ -172,7 +190,5 @@
 
     
     "console_title_template": "{{ .UserName }}@{{ .HostName }}",
-    "final_space": true,
-    "osc99": true,
-    "version": 2
+    "final_space": true
 }

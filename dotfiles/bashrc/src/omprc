@@ -8,6 +8,7 @@ declare OMP_THEMES_DIR="${OMP_DIR}/themes"
 
 function OhMyPoshSetTheme ()
 {
+    declare -r theme="$1"
 
     # private helper function
     function __ompSetTheme ()
@@ -16,18 +17,18 @@ function OhMyPoshSetTheme ()
     }
 
 
-    if [ -f $1 ]; then
-        __ompSetTheme $1
+    if [ -f ${theme} ]; then
+        __ompSetTheme ${theme}
 
-    elif [ -f ${OMP_THEMES_DIR}/$1 ]; then
-        __ompSetTheme ${OMP_THEMES_DIR}/$1
+    elif [ -f ${OMP_THEMES_DIR}/${theme} ]; then
+        __ompSetTheme ${OMP_THEMES_DIR}/${theme}
 
-    elif [ -f ${OMP_THEMES_DIR}/$1.omp.json ]; then
-        __ompSetTheme ${OMP_THEMES_DIR}/$1.omp.json
+    elif [ -f ${OMP_THEMES_DIR}/${theme}.omp.json ]; then
+        __ompSetTheme ${OMP_THEMES_DIR}/${theme}.omp.json
 
     else
         unset -f __ompSetTheme
-        >&2 echo "Unable to find oh-my-posh's theme \"$1\""
+        >&2 echo "Unable to find oh-my-posh's theme \"${theme}\""
         return 1
     fi
 
@@ -39,11 +40,23 @@ function OhMyPoshSetTheme ()
 # nice omp themes:
 #   - 1_shell
 #   - amro
+#   - lambda
+#   - lambdageneration
 #   - avit
 #   - kali
 #   - blue-owl
 #   - onehalf.minimal
 #   - spaceship
 #   - tokyo
+#   - emodipt
+#   - grubvbox
+#   - huvix
+#   - markduiker
+#   - material
+#   - nordtron
+#   - robbyrussel
+#   - tiwahu
 
-OhMyPoshSetTheme "danieleln"
+
+export OMP_PALETTE="solarizedDark"
+OhMyPoshSetTheme "danieleln.minimal"
