@@ -31,13 +31,12 @@
             "segments": [
                 {
                     "type": "exit",
-                    "template": "{{ if gt .Code 0 }}\uebe6 {{ .Code }}{{ end }}",
+                    "template": "{{ if gt .Code 0 }}\uebe6 {{ .Code }} <p:lowContrast>\ue0b1</> {{ end }}",
                     "properties": {
                         "always_enabled": true
                     },
 
-                    "style": "diamond",
-                    "trailing_diamond": " \ue0b1 ",
+                    "style": "plain",
 
                     "foreground_templates": [
                         "{{ if gt .Code 0 }}p:exitCodeFailure{{ else }}p:exitCodeSuccess{{ end }}"
@@ -68,7 +67,7 @@
                 },
                 {
                     "type": "git",
-                    "template": "{{ .HEAD }}",
+                    "template": " <p:lowContrast>\ue0b1</>{{ .HEAD }}",
                     "properties": {
                         "branch_icon": " \ue725 ",
                         "fetch_status": true,
