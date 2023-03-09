@@ -7,19 +7,19 @@
         "template": "default",
         "list": {
             "default": {
-                "main": "#c5c8c6",
-                "lowContrast": "#444950",
+                "lambda":           "#FFCC5C",
 
-                "exitCodeFailure": "#a54242",
-                "exitCodeSuccess": "#8c9440",
+                "main":             "#e4e2e0",
+                "lowContrast":      "#88827e",
 
-                "path": "#707880",
+                "workingDir":       "#b6aea9",
 
-                "gitWorking": "#5f819d",
-                "gitStaging": "#5e8d87",
-                "gitCommitted": "#707880",
+                "gitCommitted":     "#b6aea9",
+                "gitWorking":       "#40bbe3",
+                "gitStaging":       "#3ba188",
 
-                "lambda": "#f0c674"
+                "exitCodeSuccess":  "#3ba188",
+                "exitCodeFailure":  "#c94343"
             }
         }
     },
@@ -63,11 +63,11 @@
                     "style": "plain",
 
                     "background": "parentBackground",
-                    "foreground": "p:path"
+                    "foreground": "p:workingDir"
                 },
                 {
                     "type": "git",
-                    "template": " <p:lowContrast>\ue0b1</>{{ .HEAD }}",
+                    "template": "{{ .HEAD }}",
                     "properties": {
                         "branch_icon": " \ue725 ",
                         "fetch_status": true,
