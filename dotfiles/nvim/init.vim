@@ -20,4 +20,4 @@ source ~/.config/nvim/src/actions.vim
 
 
 " ----- Theme settings -----
-" source ~/.config/nvim/src/theme.vim
+source ~/.config/nvim/src/themes.vim
