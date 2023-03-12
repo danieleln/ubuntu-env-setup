@@ -58,5 +58,5 @@ function OhMyPoshSetTheme ()
 #   - tiwahu
 
 
-export OMP_PALETTE="solarizedDark"
+export OMP_PALETTE="default"
 OhMyPoshSetTheme "danieleln.minimal"

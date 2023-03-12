@@ -4,7 +4,7 @@
     "version": 2,
 
     "palettes": {
-        "template": "default",
+        "template": "{{ if eq .Env.OMP_PALETTE \"ANSI\" }}ANSI{{ else }}default{{ end }}",
         "list": {
             "default": {
                 "lambda":           "#FFCC5C",
@@ -15,11 +15,27 @@
                 "workingDir":       "#b6aea9",
 
                 "gitCommitted":     "#b6aea9",
-                "gitWorking":       "#40bbe3",
-                "gitStaging":       "#3ba188",
+                "gitWorking":       "#85678f",
+                "gitStaging":       "#40bbe3",
 
                 "exitCodeSuccess":  "#3ba188",
                 "exitCodeFailure":  "#c94343"
+            },
+
+            "ANSI": {
+                "lambda":           "yellow",
+
+                "main":             "white",
+                "lowContrast":      "darkGray",
+
+                "workingDir":       "white",
+
+                "gitCommitted":     "white",
+                "gitWorking":       "magenta",
+                "gitStaging":       "cyan",
+
+                "exitCodeSuccess":  "green",
+                "exitCodeFailure":  "red"
             }
         }
     },
@@ -62,7 +78,6 @@
 
                     "style": "plain",
 
-                    "background": "parentBackground",
                     "foreground": "p:workingDir"
                 },
                 {
